@@ -6,19 +6,22 @@
 #include <iostream>
 
 // extern "external linkage specifies the linker to link in C
+
+#if 0
 extern "C" {
     declspec(dllimport) void soSomething(void)
 {
 
 }
 }
+#endif
 
 int func2(int a, char **p) {
 
     return 0;
 }
 
-// Create an encryption function that takes a string as a pointer, a key that is one byte, and uses exclusive or, to encrypt the string.
+// Create an encryption function that takes a string as a pointer, a key that is one 32-bits, and uses exclusive or, to encrypt the string.
 // Also write the decryption function, which also takes a key and returns the same string that was originally passed to the encryption function.
 // Create a function that bruteforces the key and verifies if the key is correct. Hint: the string can only be alphanumberic (without capitals) asdfasdf98ja483a98jf4398ja3984fja3984jf
 
@@ -45,7 +48,7 @@ uint32_t main(void)
     // string 'a' 11110000 (1 byte) 
     // 'asdfasdf\0'
 
-
+    
 
     // C
     // Preprocessor symbol: 
@@ -65,6 +68,12 @@ uint32_t main(void)
     */
 
     // C, C++ (increment of c) by OOP paradigm object-oriented programming
+
+    char as = 'a';
+    if (0x61 <= as <= 0x7a) {
+        as += 0x20; // upper cases a to A
+        return 1;
+    }
 
     auto stringgg = L"siodfjaosidfjioasdjf";
     //char newStr = 'a';
@@ -88,12 +97,16 @@ uint32_t main(void)
     // % (modulus, remainder of the division operation)
     // / (division, remember, if you divide by 0 C will crash. Specifically a soft exception will happen and WIndows will crash your program). C++ recovers using exception handling
     // - (subtraction)
+    // >
+    // >=
+    // <
+    // <=
 
     // 1001 & 1010 = 1000;
     // 1001 && 1010 == true (1)
-    if (a && b) { //comparisons use ||, &&
+    //if (a && b) { //comparisons use ||, &&
         //asdf
-    }
+    //}
 
     //2 * 2 = 4;
     //10 * 10 = 1000
@@ -103,7 +116,7 @@ uint32_t main(void)
     q = q >> 2; // divide by 2, but this may produce arbitrary results as no remainder is returned (i.e. you can lose bits going either too far left or right)
 
     char *ptr2 = (char *)0x05;
-    !(*ptr2 << 2);
+    const int a = !(*ptr2 << 2);
     ~*ptr2; 
     *ptr2 ^= *ptr2; //a ^ a = 0; // equal to *ptr2 = 0;
     ptr2 = NULL;
@@ -136,26 +149,29 @@ uint32_t main(void)
 
     // char is guaranteed to be 8 bits (1 byte) across all compilers and architectures. C99 standard. 
     char cStr; //8bit or 1 byte, not a pointer!!!!!
-    char cStr2[32] = { 'a' }; // 1 byte (8-bits) * 32, all arrays are considered (loosely) as pointers
+    uint8_t cStr2[32] = { 'a' }; // 1 byte (8-bits) * 32, all arrays are considered (loosely) as pointers
 
     for (uint16_t i = 0; i <= sizeof(cStr2) / sizeof(char); i++) {
         cStr2[i] = 'a';
         break;
     }
 
-    if (cStr2[5] == 'a') {
+    if (cStr2[5] == 'a') { //0x61
         printf("ok");
     }
 
+    // "asdfasdfasdf" is all defined by the ASCII spec
     printf("hello world!!!"); //ASLR Address Space Layout Randomization (Windows), look up smashin' the stack
 
 
-    char *ptr = &cStr2[9]; //syntax candy. C doesn't need it cuse u have ptr arthimetic, but it's handy
-    ptr = (char *)0x012FFDD8;//(char *)((uint8_t)cStr2 + 9); //pointer arthimetic [9] 
-    ptr = (char *)(char *)((uint8_t)cStr2 + 9); 
+    uint8_t *ptr = &cStr2[9]; //readability syntax, but it can be replaced by ptr arithmetic
+    *ptr = cStr2[10]; // Set the index 9 uint8_t to the value stored at index 10
+    ptr = (uint8_t *)0x012FFDD8;//(char *)((uint8_t)cStr2 + 9); //pointer arthimetic [9] 
+    ptr = (uint8_t *)(uint8_t *)((uint8_t)cStr2 + 9); 
     *ptr = 0; // disabled the byte at address 0x012FFDD8
-    ptr++; //cStr2[10];
-    *ptr = 0x62;
+    ptr++; // since ptr points to 'char', we increment by 1
+    *ptr = 0x62; //'b'
+    *ptr ^= *ptr; //Zero out the value
 
     // look up virtual and physical memory (important!!!) and what makes a process, how is a processes memory space
     //  resereved and how is it converted to physical memory? (i'll tell you; it is the MMU (memory management unit -- CPU) + the OS that
