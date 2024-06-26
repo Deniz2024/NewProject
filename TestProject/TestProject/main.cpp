@@ -21,6 +21,26 @@ int func2(int a, char **p) {
     return 0;
 }
 
+/*
+
+Practice for den:
+
+1) Create a new project in this solution, call it "MiniEncryption" or something
+2) Add the main() function
+3) Add the encryption function
+    -> Takes two parameters: a string, pass by pointer. A key, 8bits in size, pass by value (uint8_t). Look up what those terms mean
+    -> In a loop, encrypt the string using simple XOR using the key, iterate character by character, and encrypt it.
+4) Write the decryption function
+    -> Same parameters as above, but it should be the encrypted string
+    -> Same decryption routine
+5) Add calls to both functions into main()
+
+Notes: Use the debugger often, it is your hatchet, your water, and your entire survival kit.
+You can look up on net how to make C functions, pass parameters, etc. Also look at how 'for' and 'while' loops work
+XOR in C is '^'. So a XOR b = c is `const int c = a ^ b;` However, use pointers to point to the elements, rather than a, or b
+
+*/
+
 // Create an encryption function that takes a string as a pointer, a key that is one 32-bits, and uses exclusive or, to encrypt the string.
 // Also write the decryption function, which also takes a key and returns the same string that was originally passed to the encryption function.
 // Create a function that bruteforces the key and verifies if the key is correct. Hint: the string can only be alphanumberic (without capitals) asdfasdf98ja483a98jf4398ja3984fja3984jf
